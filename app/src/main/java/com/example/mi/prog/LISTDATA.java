@@ -296,7 +296,6 @@ public class LISTDATA {
                 }
             }
             writeFileSolo(context, f.getName(), datatmp);
-        } catch (Exception e) {Log.i(TAG,"Idiot with ROOT stop being a 9 year old ,why do you try to break this shitty prog?? exception"+ e); //TODO: JUST DO IT
-        }
+        } catch (Exception e) {}
     }
 }

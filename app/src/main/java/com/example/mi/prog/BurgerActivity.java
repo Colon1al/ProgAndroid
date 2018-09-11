@@ -445,7 +445,7 @@ public class BurgerActivity extends AppCompatActivity
                         am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);
                         break;
 
-                    case 4:
+                    case 4://Sending notifications to user randomly
                         intent = new Intent(BurgerActivity.this, AlarmNotificationReceiver.class);
                         intent.putExtra("specialIntent","question");
                         intent.putExtra("text"," ");

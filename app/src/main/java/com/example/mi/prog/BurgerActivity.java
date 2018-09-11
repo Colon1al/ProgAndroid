@@ -445,7 +445,7 @@ public class BurgerActivity extends AppCompatActivity
                         am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);
                         break;
 
-                    case 4://Doebaza do usera
+                    case 4:
                         intent = new Intent(BurgerActivity.this, AlarmNotificationReceiver.class);
                         intent.putExtra("specialIntent","question");
                         intent.putExtra("text"," ");

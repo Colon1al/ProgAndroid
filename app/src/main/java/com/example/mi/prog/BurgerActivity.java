@@ -369,7 +369,7 @@ public class BurgerActivity extends AppCompatActivity
             if(time>c.getTimeInMillis())
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
 
-            //RE:ZERO
+            //RE:ZERO - 
             if(V.hourRestE<=9)
                 dateStrEnd = "0"+V.hourRestE+":";
             else

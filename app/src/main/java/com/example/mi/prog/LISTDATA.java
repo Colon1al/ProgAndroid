@@ -119,18 +119,7 @@ public class LISTDATA {
         }
 
     }
-
-    /*public void clearFile(Context context)
-    {
-        try
-        {
-            data = new ArrayList<EventClass>();
-            FileOutputStream f = context.openFileOutput(fileName,MODE_PRIVATE);
-            f.close();
-        }
-        catch(Exception e)
-        {}
-    }*/
+    
     public void deleteElement() {
 
     }

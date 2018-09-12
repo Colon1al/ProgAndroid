@@ -29,7 +29,7 @@ import static android.content.ContentValues.TAG;
 
 public class ListClass extends ListFragment
 {
-    static int currM = -1;//TODO:govnocode
+    static int currM = 0;//TODO:govnocode
 
     @Override
 

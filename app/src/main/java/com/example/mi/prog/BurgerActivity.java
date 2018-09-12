@@ -280,8 +280,7 @@ public class BurgerActivity extends AppCompatActivity
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
             //Repeating alarm
             //am.setRepeating(AlarmManager.RTC_WAKEUP,SystemClock.elapsedRealtime() + time, time, pendingIntent);
-        } catch (Exception e) {
-        }
+        } catch (Exception e) { }
     }
     public void startAlarmTime(Vault V) {
         try {

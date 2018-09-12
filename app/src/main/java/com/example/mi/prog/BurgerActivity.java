@@ -368,7 +368,7 @@ public class BurgerActivity extends AppCompatActivity
             if(time>c.getTimeInMillis())
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
 
-            //RE:ZERO
+            //RE:ZERO - 
             if(V.hourRestE<=9)
                 dateStrEnd = "0"+V.hourRestE+":";
             else
@@ -444,7 +444,7 @@ public class BurgerActivity extends AppCompatActivity
                         am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);
                         break;
 
-                    case 4:
+                    case 4://Sending notifications to user randomly
                         intent = new Intent(BurgerActivity.this, AlarmNotificationReceiver.class);
                         intent.putExtra("specialIntent","question");
                         intent.putExtra("text"," ");

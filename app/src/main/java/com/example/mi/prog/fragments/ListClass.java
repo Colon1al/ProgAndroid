@@ -166,7 +166,7 @@ public class ListClass extends ListFragment
             }
         }
         getActivity().startActivityForResult(intent,2);
-        Log.i(TAG,"position !!!!!!!!!!!");
+        Log.i(TAG,"position !!!!!!");
     }
 
 }

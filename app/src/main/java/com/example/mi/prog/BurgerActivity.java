@@ -52,7 +52,6 @@ public class BurgerActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_burger);
         File f = new File("/data/data/com.example.mi.prog/files/UserInfo.data");
         if (!f.getAbsoluteFile().exists()) {

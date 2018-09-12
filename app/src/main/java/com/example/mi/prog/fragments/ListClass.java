@@ -30,12 +30,9 @@ import static android.content.ContentValues.TAG;
 public class ListClass extends ListFragment
 {
     static int currM = -1;//TODO:govnocode
-
     @Override
-
     public void onActivityCreated(Bundle savedInstanceState)
     {
-
         super.onActivityCreated(savedInstanceState);
         LISTDATA l = new LISTDATA();
         final Bundle transfer = this.getArguments();

@@ -60,20 +60,22 @@ public class LISTDATA {
             ArrayList<EventClass> temp = new ArrayList<>();
             File file;
             //EDay
-            file = new File("EDay.data");
+            file = new File(context.getFilesDir()+"/EDay.data");
+            Log.i(TAG,"LISTDATA, readfile, Eday exist "+ file.getAbsolutePath());
             if (file.getAbsoluteFile().exists())
             {
-                f = context.openFileInput("EDay.data");
-                reader = new BufferedReader(new InputStreamReader(new DataInputStream(f)));
+                FileInputStream fday = context.openFileInput("EDay.data");
+                reader = new BufferedReader(new InputStreamReader(new DataInputStream(fday)));
                 json = reader.readLine();
                 temp = GSON.fromJson(json, new TypeToken<List<EventClass>>() {
                 }.getType());
-                f.close();
+                Log.i(TAG,"EDay temp size = "+temp.size());
+                fday.close();
                 for (int i = 0; i < temp.size(); i++)
                     data.add(temp.get(i));
             }
             //EWeek
-            file = new File("EWeek.data");
+            file = new File(context.getFilesDir()+"/EWeek.data");
             if (file.getAbsoluteFile().exists())
             {
                 f = context.openFileInput("EWeek.data");
@@ -86,7 +88,7 @@ public class LISTDATA {
                     data.add(temp.get(i));
             }
             //EMonth
-            file = new File("EMonth.data");
+            file = new File(context.getFilesDir()+"/EMonth.data");
             if (file.getAbsoluteFile().exists())
             {
                 f = context.openFileInput("EMonth.data");
@@ -102,7 +104,7 @@ public class LISTDATA {
             file = new File("EYear.data");
             if (file.getAbsoluteFile().exists())
             {
-                f = context.openFileInput("EYear.data");
+                f = context.openFileInput(context.getFilesDir()+"/EYear.data");
                 reader = new BufferedReader(new InputStreamReader(new DataInputStream(f)));
                 json = reader.readLine();
                 temp = GSON.fromJson(json, new TypeToken<List<EventClass>>() {
@@ -119,9 +121,7 @@ public class LISTDATA {
 
     }
 
-    public void deleteElement() {
-
-    }
+    public void deleteElement() { }
 
     public void add(Context context, EventClass newEvent) {
         try {
@@ -143,7 +143,6 @@ public class LISTDATA {
                         Log.i(TAG, "LOG FILENAME!!!!:" + f.getName());
                         Log.i(TAG, "!!!!!! LOG DATATMP SIZE: NOT A LOG ");
                         ArrayList<EventClass> datatmp = new ArrayList<>();
-
                         datatmp.add(newEvent);
                         writeFileSolo(context, f.getName(), datatmp);
                     } else {

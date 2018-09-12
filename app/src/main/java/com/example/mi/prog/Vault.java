@@ -17,7 +17,7 @@ import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.content.ContentValues.TAG;
 import static android.content.Context.ALARM_SERVICE;
 
-public class Vault { //TODO: REWORK THIS SHIIIIIT
+public class Vault { // TODO: REWORK THIS SHIIIIIT
     public static List<String> toCheerUp  = new ArrayList<>(),
             writeToWhenBored = new ArrayList<>(),
             toDoToAchieveYourGoals = new ArrayList<>(),

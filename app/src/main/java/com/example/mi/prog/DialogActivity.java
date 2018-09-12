@@ -50,9 +50,9 @@ public class DialogActivity extends AppCompatActivity {
 
     void searchLink()
     {
-        Vault v = new Vault();
-        good = v.musicWithGoodMood;
-        bad = v.musicWithBadMood;
+        Vault v = new StaticVault();
+        good = v.GetSVault().musicWithGoodMoodD;
+        bad = v.GetSVault().musicWithBadMoodD;
 
         for (int i=0;i<good.length();i++)
         {

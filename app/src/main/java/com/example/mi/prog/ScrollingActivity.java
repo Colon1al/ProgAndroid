@@ -15,7 +15,7 @@ import android.widget.TimePicker;
 import static android.content.ContentValues.TAG;
 
 public class ScrollingActivity extends AppCompatActivity {
-    int hourWorkS,minuteWorkS,hourWorkE,minuteWorkE,hourRestS,minuteRestS,hourRestE,minuteRestE;
+    int hourWorkSD,minuteWorkS,hourWorkE,minuteWorkE,hourRestS,minuteRestS,hourRestE,minuteRestE;
     CheckBox CatVideos;
     CheckBox Walk;
     CheckBox TvSeries;
@@ -77,13 +77,13 @@ public class ScrollingActivity extends AppCompatActivity {
         TimePickerDialog dialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minuteP) {
-                hourWorkS = hourOfDay;
+                hourWorkSD = hourOfDay;
                 minuteWorkS = minuteP;
                 WS.setText(v.TimeNormaliser(hourOfDay,minuteP));
 
 
             }
-        },hourWorkS,minuteWorkS,true);
+        },hourWorkSD,minuteWorkS,true);
         dialog.show();
     }
     public void getDateWorkEnd(View view)
@@ -109,7 +109,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 minuteRestS = minuteP;
                 RS.setText(v.TimeNormaliser(hourOfDay,minuteP));
             }
-        },hourWorkS,minuteWorkS,true);
+        },hourWorkSD,minuteWorkS,true);
         dialog.show();
     }
     public void getDateRestEnd(View view)
@@ -129,7 +129,7 @@ public class ScrollingActivity extends AppCompatActivity {
     {
         PersonInfo info = new PersonInfo();
         Vault vault = new Vault();
-        vault.hourWorkS=hourWorkS;
+        vault.hourWorkSD=hourWorkSD;
         vault.minuteWorkS=minuteWorkS;
         vault.hourWorkE=hourWorkE;
         vault.minuteWorkE=minuteWorkE;
@@ -166,7 +166,7 @@ public class ScrollingActivity extends AppCompatActivity {
         vault.toCheerUp.add(MoodG.getText().toString());
         vault.writeToWhenBored.add(MoodB.getText().toString());
         vault.toDoToAchieveYourGoals.add(Goals.getText().toString());
-        vault.prefferedPlaces=Places.getText().toString();
+        vault.prefferedPlacesD=Places.getText().toString();
 
         vault.extraActivities.add(ActivExtra.getText().toString());
         vault.musicWithBadMood = MusicB.getText().toString();

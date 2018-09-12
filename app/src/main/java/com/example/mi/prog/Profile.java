@@ -48,10 +48,10 @@ public class Profile extends AppCompatActivity {
         WE = findViewById(R.id.button4);
         RS = findViewById(R.id.button5);
         RE = findViewById(R.id.button6);
-        Name.setText(v.Name);
-        MusicG.setText(v.musicWithGoodMood);
-        MusicB.setText(v.musicWithBadMood);
-        List<String> lst  = v.writeToWhenBored;
+        Name.setText(v.NameD);
+        MusicG.setText(v.musicWithGoodMoodD);
+        MusicB.setText(v.musicWithBadMoodD);
+        List<String> lst  = v.writeToWhenBoredD;
         for (int i=0;i<lst.size();++i)
         {
             if(lst.get(i).equals("Может стоит позвонить родственникам ?")) lst.set(i,"Роственники");
@@ -66,7 +66,7 @@ public class Profile extends AppCompatActivity {
             }
         }
         MoodB.setText(tmp);
-        lst = v.toCheerUp;
+        lst = v.toCheerUpD;
         for (int i=0;i<lst.size();++i)
         {
             if(lst.get(i).equals("Посмотри видео с котиками")) lst.set(i,"Видео с котиками");
@@ -82,7 +82,7 @@ public class Profile extends AppCompatActivity {
             }
         }
         MoodG.setText(tmp);
-        lst = v.extraActivities;
+        lst = v.extraActivitiesD;
         for (int i=0;i<lst.size();++i)
         {
             if(lst.get(i).equals("Сходи в бассейн, подготовься к лету) ")) lst.set(i,"Бассейн");
@@ -99,7 +99,7 @@ public class Profile extends AppCompatActivity {
             }
         }
         ActivExtra.setText(tmp);
-        tmp = v.toDoToAchieveYourGoals.toString();
+        tmp = v.toDoToAchieveYourGoalsD.toString();
         for (int i=0;i<tmp.length();i++)
         {
             if(tmp.charAt(i)=='['||tmp.charAt(i)==']')
@@ -108,7 +108,7 @@ public class Profile extends AppCompatActivity {
             }
         }
         Goals.setText(tmp);
-        tmp = v.prefferedPlaces;
+        tmp = v.prefferedPlacesD;
         for (int i=0;i<tmp.length();i++)
         {
             if(tmp.charAt(i)=='+')
@@ -117,9 +117,11 @@ public class Profile extends AppCompatActivity {
             }
         }
         Places.setText(tmp);
-        WS.setText(v.TimeNormaliser(v.hourWorkS,v.minuteWorkS));
-        WE.setText(v.TimeNormaliser(v.hourWorkE,v.minuteWorkE));
-        RS.setText(v.TimeNormaliser(v.hourRestS,v.minuteRestS));
-        RE.setText(v.TimeNormaliser(v.hourRestE,v.minuteRestE));
+        WS.setText(v.TimeNormaliser(v.hourWorkSD,v.minuteWorkSD));
+        WE.setText(v.TimeNormaliser(v.hourWorkED,v.minuteWorkED));
+        RS.setText(v.TimeNormaliser(v.hourRestSD,v.minuteRestSD));
+        RE.setText(v.TimeNormaliser(v.hourRestED,v.minuteRestED));
+        Vault sVault = new StaticVault();
+        sVault.SetSVault(v);
     }
 }

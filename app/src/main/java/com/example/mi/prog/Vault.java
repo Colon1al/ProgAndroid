@@ -18,19 +18,13 @@ import static android.content.ContentValues.TAG;
 import static android.content.Context.ALARM_SERVICE;
 
 public class Vault { // TODO: REWORK THIS SHIIIIIT
-    public static List<String> toCheerUp  = new ArrayList<>(),
-            writeToWhenBored = new ArrayList<>(),
-            toDoToAchieveYourGoals = new ArrayList<>(),
-            extraActivities = new ArrayList<>();
-    public static String prefferedPlaces, musicWithGoodMood,musicWithBadMood, Name;
     public List<String> toCheerUpD  = new ArrayList<>(),
             writeToWhenBoredD = new ArrayList<>(),
             toDoToAchieveYourGoalsD = new ArrayList<>(),
             extraActivitiesD = new ArrayList<>();
     public String prefferedPlacesD,musicWithGoodMoodD,musicWithBadMoodD, NameD;
     int hourWorkSD,minuteWorkSD,hourWorkED,minuteWorkED,hourRestSD,minuteRestSD,hourRestED,minuteRestED;
-    static int hourWorkS,minuteWorkS,hourWorkE,minuteWorkE,hourRestS,minuteRestS,hourRestE,minuteRestE;
-    public void jsonHandicapWrite()
+   /* public void jsonHandicapWrite()
     {
         toCheerUpD = toCheerUp;
         writeToWhenBoredD = writeToWhenBored;
@@ -67,13 +61,50 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
         minuteRestS = minuteRestSD;
         minuteWorkE = minuteWorkED;
         minuteWorkS = minuteWorkSD;
-    }
-    public void startAlarmTime(Vault V,Context context) {
+    }*/
+   private Date NiceAlarm(String title, String Special,String dateStrEnd,SimpleDateFormat sdf,Intent intent, PendingIntent pendingIntent,Context context,AlarmManager am,String dateStr, Calendar c,int mins,int hours)
+   {
+       try{ if(hours<=9)
+       dateStrEnd = "0"+hours+":";
+   else
+       dateStrEnd = hours+":";
+       if(mins<=9)
+           dateStrEnd = dateStrEnd+"0"+mins+":00.000";
+       else
+           dateStrEnd = dateStrEnd+mins+":00.000";
+       Date dateWS = sdf.parse(dateStr + dateStrEnd);
+       intent = new Intent(context, AlarmNotificationReceiver.class);
+       intent.putExtra("time",dateWS.toString());
+       intent.putExtra("title",title);
+       intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+hours*100 +mins);
+       intent.putExtra("specialIntent",Special);
+       pendingIntent = PendingIntent.getBroadcast(context, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+hours*100 +mins, intent, FLAG_UPDATE_CURRENT);
+       long time;
+       time = dateWS.getTime();
+       //Non-repeating alarm
+       if(time>c.getTimeInMillis())
+           am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+       return dateWS;
+       } catch (Exception e){return null;}}
+private void AskUser(Context context,Intent intent,String text,String title,int id,String Special,PendingIntent pendingIntent,AlarmManager am,long timeRand)
+{
+    intent = new Intent(context, AlarmNotificationReceiver.class);
+    intent.putExtra("text",text);
+    intent.putExtra("title", "Тебе грустно?");
+    intent.putExtra("ID", 1);
+    intent.putExtra("specialIntent","Basic");
+    pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
+    //Non-repeating alarm
+    am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);
+}
+
+
+           public void startAlarmTime(StaticVault V,Context context) {
         try {
             AlarmManager am = (AlarmManager)context.getSystemService(ALARM_SERVICE);
-            Intent intent;
+            Intent intent = new Intent();
             long time;
-            PendingIntent pendingIntent;
+            PendingIntent pendingIntent = null;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             Calendar c = Calendar.getInstance();
             String dateStr = c.get(Calendar.YEAR)+"-"; //" "+
@@ -87,68 +118,74 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
                 dateStr = dateStr + c.get(Calendar.DAY_OF_MONTH);
             dateStr = dateStr + " ";
 
-            String dateStrEnd;
+            String dateStrEnd = "";
+            Date dateRS,dateRE,dateWS,dateWE;
+            dateWS = NiceAlarm("Пора за работу","Basic",dateStrEnd,sdf,intent,pendingIntent,context,am,dateStr,c,V.GetSVault().hourWorkSD,V.GetSVault().minuteWorkSD);
+            dateWE = NiceAlarm("Пора за работу","Basic",dateStrEnd,sdf,intent,pendingIntent,context,am,dateStr,c,V.GetSVault().hourWorkED,V.GetSVault().minuteWorkED);
+            dateRS = NiceAlarm("Пора за работу","Basic",dateStrEnd,sdf,intent,pendingIntent,context,am,dateStr,c,V.GetSVault().hourRestSD,V.GetSVault().minuteRestSD);
+            dateRE = NiceAlarm("Пора за работу","Basic",dateStrEnd,sdf,intent,pendingIntent,context,am,dateStr,c,V.GetSVault().hourRestED,V.GetSVault().minuteRestED);
+
 
             //WS
-            if(V.hourWorkS<=9)
-                dateStrEnd = "0"+V.hourWorkS+":";
+            /*if(V.GetSVault().hourWorkSD<=9)
+                dateStrEnd = "0"+V.GetSVault().hourWorkSD+":";
             else
-                dateStrEnd = V.hourWorkS+":";
-            if(V.minuteWorkS<=9)
-                dateStrEnd = dateStrEnd+"0"+V.minuteWorkS+":00.000";
+                dateStrEnd = V.GetSVault().hourWorkSD+":";
+            if(V.GetSVault().minuteWorkSD<=9)
+                dateStrEnd = dateStrEnd+"0"+V.GetSVault().minuteWorkSD+":00.000";
             else
-                dateStrEnd = dateStrEnd+V.minuteWorkS+":00.000";
+                dateStrEnd = dateStrEnd+V.GetSVault().minuteWorkSD+":00.000";
 
             Date dateWS = sdf.parse(dateStr + dateStrEnd);
             intent = new Intent(context, AlarmNotificationReceiver.class);
             intent.putExtra("time",dateWS.toString());
             intent.putExtra("title","Пора за работу");
-            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourWorkS*100 +V.minuteWorkS);
+            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.GetSVault().hourWorkSD*100 +V.GetSVault().minuteWorkSD);
             intent.putExtra("specialIntent","Basic");
-            pendingIntent = PendingIntent.getBroadcast(context, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourWorkS*100 +V.minuteWorkS, intent, FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(context, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.GetSVault().hourWorkSD*100 +V.minuteWorkSD, intent, FLAG_UPDATE_CURRENT);
             time = dateWS.getTime();
             //Non-repeating alarm
             if(time>c.getTimeInMillis())
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
 
             //WE
-            if(V.hourWorkE<=9)
-                dateStrEnd = "0"+V.hourWorkE+":";
+            if(V.GetSVault().hourWorkED<=9)
+                dateStrEnd = "0"+V.GetSVault().hourWorkED+":";
             else
-                dateStrEnd = V.hourWorkE+":";
-            if(V.minuteWorkE<=9)
-                dateStrEnd = dateStrEnd+"0"+V.minuteWorkE+":00.000";
+                dateStrEnd = V.GetSVault().hourWorkED+":";
+            if(V.GetSVault().minuteWorkED<=9)
+                dateStrEnd = dateStrEnd+"0"+V.GetSVault().minuteWorkED+":00.000";
             else
-                dateStrEnd = dateStrEnd+V.minuteWorkE+":00.000";
+                dateStrEnd = dateStrEnd+V.GetSVault().minuteWorkED+":00.000";
 
             Date dateWE = sdf.parse(dateStr + dateStrEnd);
             intent = new Intent(context, AlarmNotificationReceiver.class);
             intent.putExtra("time",dateWE.toString());
             intent.putExtra("title","Пора закончить работу");
-            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourWorkE*100 +V.minuteWorkE);
+            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.GetSVault().hourWorkED*100 +V.GetSVault().minuteWorkED);
             intent.putExtra("specialIntent","Basic");
-            pendingIntent = PendingIntent.getBroadcast(context, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourWorkE*100 +V.minuteWorkE, intent, FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(context, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.GetSVault().hourWorkED*100 +V.GetSVault().minuteWorkED, intent, FLAG_UPDATE_CURRENT);
             time = dateWE.getTime();
             //Non-repeating alarm
             if(time>c.getTimeInMillis())
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
 
             //RS
-            if(V.hourRestS<=9)
-                dateStrEnd = "0"+V.hourRestS+":";
+            if(V.GetSVault().hourRestSD<=9)
+                dateStrEnd = "0"+V.GetSVault().hourRestSD+":";
             else
-                dateStrEnd = V.hourRestS+":";
-            if(V.minuteRestS<=9)
-                dateStrEnd = dateStrEnd+"0"+V.minuteRestS+":00.000";
+                dateStrEnd = V.GetSVault().hourRestSD+":";
+            if(V.GetSVault().minuteRestSD<=9)
+                dateStrEnd = dateStrEnd+"0"+V.GetSVault().minuteRestSD+":00.000";
             else
-                dateStrEnd = dateStrEnd+V.minuteRestS+":00.000";
+                dateStrEnd = dateStrEnd+V.GetSVault().minuteRestSD+":00.000";
             Date dateRS = sdf.parse(dateStr + dateStrEnd);
             intent = new Intent(context, AlarmNotificationReceiver.class);
             intent.putExtra("time",dateRS.toString());
             intent.putExtra("title","Пора отдыхать");
-            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourRestS*100 +V.minuteRestS);
+            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.GetSVault().hourRestSD*100 +V.GetSVault().minuteRestSD);
             intent.putExtra("specialIntent","Basic");
-            pendingIntent = PendingIntent.getBroadcast(context, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourRestS*100 +V.minuteRestS, intent, FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(context, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.GetSVault().hourRestSD*100 +V.GetSVault().minuteRestSD, intent, FLAG_UPDATE_CURRENT);
             time = dateRS.getTime();
             //Non-repeating alarm
             if(time>c.getTimeInMillis())
@@ -174,7 +211,7 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
             //Non-repeating alarm
             if(time>c.getTimeInMillis())
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
-
+*/
             //RestRandom
             if(dateRE.getTime()>dateRS.getTime()) {
                 long timeRand = ThreadLocalRandom.current().nextLong(dateRS.getTime(), dateRE.getTime());
@@ -186,61 +223,26 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
                 switch (whatToSay)
                 {
                     case 0://toCheerUp
-                        intent = new Intent(context, AlarmNotificationReceiver.class);
-                        i = ThreadLocalRandom.current().nextInt(0,V.toCheerUp.size());
-                        intent.putExtra("text",V.toCheerUp.get(i));
-                        intent.putExtra("title", "Тебе грустно?");
-                        intent.putExtra("ID", 1);
-                        intent.putExtra("specialIntent","Basic");
-                        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
-                        //Non-repeating alarm
-                        am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);
+                        i = ThreadLocalRandom.current().nextInt(0,V.GetSVault().toCheerUpD.size());
+                        AskUser(context,intent,V.GetSVault().toCheerUpD.get(i),"Тебе скучно?",1,"Basic",pendingIntent,am,timeRand);
                         break;
 
                     case 1://writeToWhenNored
-                        intent = new Intent(context, AlarmNotificationReceiver.class);
-                        i = ThreadLocalRandom.current().nextInt(0,V.writeToWhenBored.size());
-                        intent.putExtra("text",V.writeToWhenBored.get(i));
-                        intent.putExtra("title", "Тебе скучно?");
-                        intent.putExtra("ID", 2);
-                        intent.putExtra("specialIntent","Basic");
-                        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
-                        //Non-repeating alarm
-                        am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);
+                        i = ThreadLocalRandom.current().nextInt(0,V.GetSVault().writeToWhenBoredD.size());
+                        AskUser(context,intent,V.GetSVault().writeToWhenBoredD.get(i),"Тебе скучно?",2,"Basic",pendingIntent,am,timeRand);
                         break;
 
                     case 2://toDoToAchieveYourGoals
-                        intent = new Intent(context, AlarmNotificationReceiver.class);
-                        i = ThreadLocalRandom.current().nextInt(0,V.toDoToAchieveYourGoals.size());
-                        intent.putExtra("text","Займись этим: "+V.toDoToAchieveYourGoals.get(i));
-                        intent.putExtra("title", "Нечего делать? Время достигать свои цели!");
-                        intent.putExtra("ID", 3);
-                        intent.putExtra("specialIntent","Basic");
-                        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
-                        //Non-repeating alarm
-                        am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);
+                        i = ThreadLocalRandom.current().nextInt(0,V.GetSVault().toDoToAchieveYourGoalsD.size());
+                        AskUser(context,intent,V.GetSVault().toDoToAchieveYourGoalsD.get(i),"Тебе скучно?",3,"Basic",pendingIntent,am,timeRand);
                         break;
 
                     case 3://prefferedplaces
-                        intent = new Intent(context, AlarmNotificationReceiver.class);
-                        intent.putExtra("specialIntent","places");
-                        intent.putExtra("text","Не сходить ли тебе сюда: "+V.prefferedPlacesD);
-                        intent.putExtra("title", "Тебе скучно?");
-                        intent.putExtra("ID", 4);
-                        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
-                        //Non-repeating alarm
-                        am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);
+                        AskUser(context,intent,"Не сходить ли тебе сюда: "+V.GetSVault().prefferedPlacesD,"Тебе скучно?",4,"Places",pendingIntent,am,timeRand);
                         break;
 
                     case 4:
-                        intent = new Intent(context, AlarmNotificationReceiver.class);
-                        intent.putExtra("specialIntent","question");
-                        intent.putExtra("text"," ");
-                        intent.putExtra("title", "Тебе скучно?");
-                        intent.putExtra("ID", 5);
-                        pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
-                        //Non-repeating alarm
-                        am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);
+                        AskUser(context,intent,"Нажми на меня","Тебе скучно?",5,"question",pendingIntent,am,timeRand);
                         break;
 
                 }
@@ -264,4 +266,6 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
                 return(hourOfDay+" : "+minuteP);
         }
     }
+    public void SetSVault(Vault v) { }
+    public Vault GetSVault(){return null;}
 }

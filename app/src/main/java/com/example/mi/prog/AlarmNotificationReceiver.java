@@ -59,22 +59,22 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         if (specialIntent.equals("places"))
         {
             Vault v = new Vault();
-            Log.i(TAG,"ВУИГПЖ !!!!!!!!!!: "+ v.prefferedPlaces);
-            for (int i=0;i<v.prefferedPlaces.length();i++)
+            Log.i(TAG,"ВУИГПЖ !!!!!!!!!!: "+ v.GetSVault().prefferedPlacesD);
+            for (int i=0;i<v.GetSVault().prefferedPlacesD.length();i++)
             {
-                if (v.prefferedPlaces.charAt(i) != ' ') {
-                    v.prefferedPlaces = v.prefferedPlaces.substring(i);
+                if (v.GetSVault().prefferedPlacesD.charAt(i) != ' ') {
+                    v.GetSVault().prefferedPlacesD = v.GetSVault().prefferedPlacesD.substring(i);
                     break;
                 }
             }
-            for (int i=0;i<v.prefferedPlaces.length();i++)
+            for (int i=0;i<v.GetSVault().prefferedPlacesD.length();i++)
             {
-                if(v.prefferedPlaces.charAt(i)==' ')
+                if(v.GetSVault().prefferedPlacesD.charAt(i)==' ')
                 {
-                    v.prefferedPlaces = v.prefferedPlaces.substring(0,i) + "+" + v.prefferedPlaces.substring(i+1);
+                    v.GetSVault().prefferedPlacesD = v.GetSVault().prefferedPlacesD.substring(0,i) + "+" + v.GetSVault().prefferedPlacesD.substring(i+1);
                 }
             }
-            Intent intentForNotification = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.ru/maps/search/"+v.prefferedPlaces+"/"));
+            Intent intentForNotification = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.ru/maps/search/"+v.GetSVault().prefferedPlacesD+"/"));
             Log.i(TAG,"After Uri Plases Notif Res");
             intentForNotification.putExtra("m", 1);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intentForNotification, PendingIntent.FLAG_UPDATE_CURRENT);

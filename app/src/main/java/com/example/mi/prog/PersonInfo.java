@@ -23,7 +23,7 @@ public class PersonInfo {
         {
             Vault vault =new Vault();
             FileOutputStream fi = context.openFileOutput("UserInfo.data",MODE_PRIVATE);
-            vault.jsonHandicapWrite();
+            //vault.jsonHandicapWrite();
             String json = GSON.toJson(vault,Vault.class);
             Log.i(TAG, "JSON!!!!!!!!!!!:"+json);
             fi.write(json.getBytes());
@@ -44,7 +44,7 @@ public class PersonInfo {
             BufferedReader reader = new BufferedReader(new InputStreamReader(new DataInputStream(f)));
             String json = reader.readLine();
             Vault vault = GSON.fromJson(json, new TypeToken<Vault>(){}.getType());
-            vault.jsonHandicapRead();
+            //vault.jsonHandicapRead();
             f.close();
         }
         catch(Exception e)

@@ -43,9 +43,7 @@ import static android.content.ContentValues.TAG;
 
 public class BurgerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    Fragment testfragment1;
-    Fragment testfragment2;
-    Fragment testfragment3;
+    Fragment testfragment1,testfragment2,testfragment3;
     TextView T;
     static boolean fragmentCheck = false;
 
@@ -128,7 +126,7 @@ public class BurgerActivity extends AppCompatActivity
         NavigationView n = findViewById(R.id.nav_view);
         View header = n.getHeaderView(0);
         T = header.findViewById(R.id.UserName);
-        T.setText(v.Name);
+        T.setText(v.GetSVault().NameD);
     }
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -258,7 +256,7 @@ public class BurgerActivity extends AppCompatActivity
             //am.setRepeating(AlarmManager.RTC_WAKEUP,SystemClock.elapsedRealtime() + time, time, pendingIntent);
         } catch (Exception e) { }
     }
-    public void startAlarmTime(Vault V) {
+    public void startAlarmTime(Vault v) {
         try {
             AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
             Intent intent;
@@ -280,86 +278,86 @@ public class BurgerActivity extends AppCompatActivity
             String dateStrEnd;
 
             //WS
-            if(V.hourWorkS<=9)
-                dateStrEnd = "0"+V.hourWorkS+":";
+            if(v.GetSVault().hourWorkSD<=9)
+                dateStrEnd = "0"+v.GetSVault().hourWorkSD+":";
             else
-                dateStrEnd = V.hourWorkS+":";
-            if(V.minuteWorkS<=9)
-                dateStrEnd = dateStrEnd+"0"+V.minuteWorkS+":00.000";
+                dateStrEnd = v.GetSVault().hourWorkSD+":";
+            if(v.GetSVault().minuteWorkSD<=9)
+                dateStrEnd = dateStrEnd+"0"+v.GetSVault().minuteWorkSD+":00.000";
             else
-                dateStrEnd = dateStrEnd+V.minuteWorkS+":00.000";
+                dateStrEnd = dateStrEnd+v.GetSVault().minuteWorkSD+":00.000";
 
             Date dateWS = sdf.parse(dateStr + dateStrEnd);
             intent = new Intent(BurgerActivity.this, AlarmNotificationReceiver.class);
             intent.putExtra("time",dateWS.toString());
             intent.putExtra("title","Пора за работу");
-            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourWorkS*100 +V.minuteWorkS);
+            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+v.GetSVault().hourWorkSD*100 +v.GetSVault().minuteWorkSD);
             intent.putExtra("specialIntent","Basic");
-            pendingIntent = PendingIntent.getBroadcast(BurgerActivity.this, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourWorkS*100 +V.minuteWorkS, intent, FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(BurgerActivity.this, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+v.GetSVault().hourWorkSD*100 +v.GetSVault().minuteWorkSD, intent, FLAG_UPDATE_CURRENT);
             time = dateWS.getTime();
             //Non-repeating alarm
             if(time>c.getTimeInMillis())
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
 
             //WE
-            if(V.hourWorkE<=9)
-                dateStrEnd = "0"+V.hourWorkE+":";
+            if(v.GetSVault().hourWorkED<=9)
+                dateStrEnd = "0"+v.GetSVault().hourWorkED+":";
             else
-                dateStrEnd = V.hourWorkE+":";
-            if(V.minuteWorkE<=9)
-                dateStrEnd = dateStrEnd+"0"+V.minuteWorkE+":00.000";
+                dateStrEnd = v.GetSVault().hourWorkED+":";
+            if(v.GetSVault().minuteWorkED<=9)
+                dateStrEnd = dateStrEnd+"0"+v.GetSVault().minuteWorkED+":00.000";
             else
-                dateStrEnd = dateStrEnd+V.minuteWorkE+":00.000";
+                dateStrEnd = dateStrEnd+v.GetSVault().minuteWorkED+":00.000";
 
             Date dateWE = sdf.parse(dateStr + dateStrEnd);
             intent = new Intent(BurgerActivity.this, AlarmNotificationReceiver.class);
             intent.putExtra("time",dateWE.toString());
             intent.putExtra("title","Пора закончить работу");
-            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourWorkE*100 +V.minuteWorkE);
+            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+v.GetSVault().hourWorkED*100 +v.GetSVault().minuteWorkED);
             intent.putExtra("specialIntent","Basic");
-            pendingIntent = PendingIntent.getBroadcast(BurgerActivity.this, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourWorkE*100 +V.minuteWorkE, intent, FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(BurgerActivity.this, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+v.GetSVault().hourWorkED*100 +v.GetSVault().minuteWorkED, intent, FLAG_UPDATE_CURRENT);
             time = dateWE.getTime();
             //Non-repeating alarm
             if(time>c.getTimeInMillis())
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
 
             //RS
-            if(V.hourRestS<=9)
-                dateStrEnd = "0"+V.hourRestS+":";
+            if(v.GetSVault().hourRestSD<=9)
+                dateStrEnd = "0"+v.GetSVault().hourRestSD+":";
             else
-                dateStrEnd = V.hourRestS+":";
-            if(V.minuteRestS<=9)
-                dateStrEnd = dateStrEnd+"0"+V.minuteRestS+":00.000";
+                dateStrEnd = v.GetSVault().hourRestSD+":";
+            if(v.GetSVault().minuteRestSD<=9)
+                dateStrEnd = dateStrEnd+"0"+v.GetSVault().minuteRestSD+":00.000";
             else
-                dateStrEnd = dateStrEnd+V.minuteRestS+":00.000";
+                dateStrEnd = dateStrEnd+v.GetSVault().minuteRestSD+":00.000";
             Date dateRS = sdf.parse(dateStr + dateStrEnd);
             intent = new Intent(BurgerActivity.this, AlarmNotificationReceiver.class);
             intent.putExtra("time",dateRS.toString());
             intent.putExtra("title","Пора отдыхать");
-            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourRestS*100 +V.minuteRestS);
+            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+v.GetSVault().hourRestSD*100 +v.GetSVault().minuteRestSD);
             intent.putExtra("specialIntent","Basic");
-            pendingIntent = PendingIntent.getBroadcast(BurgerActivity.this, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourRestS*100 +V.minuteRestS, intent, FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(BurgerActivity.this, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+v.GetSVault().hourRestSD*100 +v.GetSVault().minuteRestSD, intent, FLAG_UPDATE_CURRENT);
             time = dateRS.getTime();
             //Non-repeating alarm
             if(time>c.getTimeInMillis())
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
 
             //RE:ZERO - 
-            if(V.hourRestE<=9)
-                dateStrEnd = "0"+V.hourRestE+":";
+            if(v.GetSVault().hourRestED<=9)
+                dateStrEnd = "0"+v.GetSVault().hourRestED+":";
             else
-                dateStrEnd = V.hourRestE+":";
-            if(V.minuteRestE<=9)
-                dateStrEnd = dateStrEnd+"0"+V.minuteRestE+":00.000";
+                dateStrEnd = v.GetSVault().hourRestED+":";
+            if(v.GetSVault().minuteRestED<=9)
+                dateStrEnd = dateStrEnd+"0"+v.GetSVault().minuteRestED+":00.000";
             else
-                dateStrEnd = dateStrEnd+V.minuteRestE+":00.000";
+                dateStrEnd = dateStrEnd+v.GetSVault().minuteRestED+":00.000";
             Date dateRE = sdf.parse(dateStr + dateStrEnd);
             intent = new Intent(BurgerActivity.this, AlarmNotificationReceiver.class);
             intent.putExtra("time",dateRE.toString());
             intent.putExtra("title","Пора перестать отдыхать");
-            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourRestE*100 +V.minuteRestE);
+            intent.putExtra("ID",c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+v.GetSVault().hourRestED*100 +v.GetSVault().minuteRestED);
             intent.putExtra("specialIntent","Basic");
-            pendingIntent = PendingIntent.getBroadcast(BurgerActivity.this, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+V.hourRestE*100 +V.minuteRestE, intent, FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(BurgerActivity.this, c.get(Calendar.YEAR)*100000000+c.get(Calendar.MONTH)*1000000+c.get(Calendar.DAY_OF_MONTH)*10000+v.GetSVault().hourRestED*100 +v.GetSVault().minuteRestED, intent, FLAG_UPDATE_CURRENT);
             time = dateRE.getTime();
             //Non-repeating alarm
             if(time>c.getTimeInMillis())
@@ -373,10 +371,10 @@ public class BurgerActivity extends AppCompatActivity
                 int i;
                 switch (whatToSay)
                 {
-                    case 0://toCheerUp
+                    case 0://toCheerUpD
                         intent = new Intent(BurgerActivity.this, AlarmNotificationReceiver.class);
-                        i = ThreadLocalRandom.current().nextInt(0,V.toCheerUp.size());
-                        intent.putExtra("text",V.toCheerUp.get(i));
+                        i = ThreadLocalRandom.current().nextInt(0,v.GetSVault().toCheerUpD.size());
+                        intent.putExtra("text",v.GetSVault().toCheerUpD.get(i));
                         intent.putExtra("title", "Тебе грустно?");
                         intent.putExtra("ID", 1);
                         intent.putExtra("specialIntent","Basic");
@@ -387,8 +385,8 @@ public class BurgerActivity extends AppCompatActivity
 
                     case 1://writeToWhenNored
                         intent = new Intent(BurgerActivity.this, AlarmNotificationReceiver.class);
-                        i = ThreadLocalRandom.current().nextInt(0,V.writeToWhenBored.size());
-                        intent.putExtra("text",V.writeToWhenBored.get(i));
+                        i = ThreadLocalRandom.current().nextInt(0,v.GetSVault().writeToWhenBoredD.size());
+                        intent.putExtra("text",v.GetSVault().writeToWhenBoredD.get(i));
                         intent.putExtra("title", "Тебе скучно?");
                         intent.putExtra("ID", 2);
                         intent.putExtra("specialIntent","Basic");
@@ -397,10 +395,10 @@ public class BurgerActivity extends AppCompatActivity
                         am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);
                         break;
 
-                    case 2://toDoToAchieveYourGoals
+                    case 2://toDoToAchieveYourGoalsD
                         intent = new Intent(BurgerActivity.this, AlarmNotificationReceiver.class);
-                        i = ThreadLocalRandom.current().nextInt(0,V.toDoToAchieveYourGoals.size());
-                        intent.putExtra("text","Займись этим: "+V.toDoToAchieveYourGoals.get(i));
+                        i = ThreadLocalRandom.current().nextInt(0,v.GetSVault().toDoToAchieveYourGoalsD.size());
+                        intent.putExtra("text","Займись этим: "+v.GetSVault().toDoToAchieveYourGoalsD.get(i));
                         intent.putExtra("title", "Нечего делать? Время достигать свои цели!");
                         intent.putExtra("ID", 3);
                         intent.putExtra("specialIntent","Basic");
@@ -409,10 +407,10 @@ public class BurgerActivity extends AppCompatActivity
                         am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);
                         break;
 
-                    case 3://prefferedplaces
+                    case 3://prefferedPlacesD
                         intent = new Intent(BurgerActivity.this, AlarmNotificationReceiver.class);
                         intent.putExtra("specialIntent","places");
-                        intent.putExtra("text","Не сходить ли тебе сюда: "+V.prefferedPlaces);
+                        intent.putExtra("text","Не сходить ли тебе сюда: "+v.GetSVault().prefferedPlacesD);
                         intent.putExtra("title", "Тебе скучно?");
                         intent.putExtra("ID", 4);
                         pendingIntent = PendingIntent.getBroadcast(BurgerActivity.this, 0, intent, FLAG_UPDATE_CURRENT);

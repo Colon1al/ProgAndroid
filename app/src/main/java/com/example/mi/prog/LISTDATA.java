@@ -34,7 +34,6 @@ public class LISTDATA {
 
     public void writeFile(Context context) {
         try {
-            //TODO Test git ;)
             FileOutputStream fi = context.openFileOutput(Integer.toString(lyear) + "-" + Integer.toString(lmonth) + ".data", MODE_PRIVATE);
             String json = GSON.toJson(data);
             fi.write(json.getBytes());

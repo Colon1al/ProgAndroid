@@ -101,10 +101,10 @@ public class LISTDATA {
                     data.add(temp.get(i));
             }
             //EYear
-            file = new File("EYear.data");
+            file = new File(context.getFilesDir()+"/EYear.data");
             if (file.getAbsoluteFile().exists())
             {
-                f = context.openFileInput(context.getFilesDir()+"/EYear.data");
+                f = context.openFileInput("EYear.data");
                 reader = new BufferedReader(new InputStreamReader(new DataInputStream(f)));
                 json = reader.readLine();
                 temp = GSON.fromJson(json, new TypeToken<List<EventClass>>() {

@@ -48,17 +48,25 @@ public class LISTDATA {
 
     public void readFile(Context context) {
         try {
+            File file;
+            FileInputStream f;
+            BufferedReader reader;
+            String json;
 
-            FileInputStream f = context.openFileInput(Integer.toString(lyear) + "-" + Integer.toString(lmonth) + ".data");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new DataInputStream(f)));
-            String json = reader.readLine();
-            data = GSON.fromJson(json, new TypeToken<List<EventClass>>() {
-            }.getType());
-            f.close();
+
+            file = new File(context.getFilesDir()+"/" + Integer.toString(lyear) + "-" + Integer.toString(lmonth) + ".data");
+            if (file.getAbsoluteFile().exists())
+            {
+                f = context.openFileInput(Integer.toString(lyear) + "-" + Integer.toString(lmonth) + ".data");
+                reader = new BufferedReader(new InputStreamReader(new DataInputStream(f)));
+                json = reader.readLine();
+                data = GSON.fromJson(json, new TypeToken<List<EventClass>>() {
+                }.getType());
+                f.close();
+            }
 
             //Repeating events
             ArrayList<EventClass> temp = new ArrayList<>();
-            File file;
             //EDay
             file = new File(context.getFilesDir()+"/EDay.data");
             Log.i(TAG,"LISTDATA, readfile, Eday exist "+ file.getAbsolutePath());
@@ -116,12 +124,10 @@ public class LISTDATA {
             }
 
         } catch (Exception e) {
-            Log.i(TAG, "Exception2");
+            Log.i(TAG, "Exception2 + " + e);
         }
 
     }
-
-    public void deleteElement() { }
 
     public void add(Context context, EventClass newEvent) {
         try {

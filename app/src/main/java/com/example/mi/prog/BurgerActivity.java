@@ -219,7 +219,9 @@ public class BurgerActivity extends AppCompatActivity
                 try {
                     nm.notify(10, notification.build());
                 }catch(Exception e){Log.i(TAG,e.toString());}
-        startAlarmTime(new Vault());
+
+                StaticVault vs = new StaticVault();
+                vs.startAlarmTime(vs, this);
         }
     }
     public void OPENPROFILE(View v)
@@ -256,6 +258,7 @@ public class BurgerActivity extends AppCompatActivity
             //am.setRepeating(AlarmManager.RTC_WAKEUP,SystemClock.elapsedRealtime() + time, time, pendingIntent);
         } catch (Exception e) { }
     }
+    /*
     public void startAlarmTime(Vault v) {
         try {
             AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -435,6 +438,6 @@ public class BurgerActivity extends AppCompatActivity
         } catch (Exception e) {
             Log.i(TAG, "EXCEPTION FOUND IN START ALARM TIME:    "+e);
         }
-    }
+    }*/
 
 }

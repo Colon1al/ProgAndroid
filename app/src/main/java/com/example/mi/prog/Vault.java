@@ -90,9 +90,9 @@ private void AskUser(Context context,Intent intent,String text,String title,int 
 {
     intent = new Intent(context, AlarmNotificationReceiver.class);
     intent.putExtra("text",text);
-    intent.putExtra("title", "Тебе грустно?");
+    intent.putExtra("title", title);
     intent.putExtra("ID", 1);
-    intent.putExtra("specialIntent","Basic");
+    intent.putExtra("specialIntent",Special);
     pendingIntent = PendingIntent.getBroadcast(context, 0, intent, FLAG_UPDATE_CURRENT);
     //Non-repeating alarm
     am.set(AlarmManager.RTC_WAKEUP, timeRand, pendingIntent);

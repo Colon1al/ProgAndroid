@@ -17,11 +17,10 @@ import static android.content.Context.MODE_PRIVATE;
 public class PersonInfo {
     File file;
     private final static Gson GSON = new GsonBuilder().create();
-    public void writeFile(Context context)
+    public void writeFile(Context context, Vault vault)
     {
         try
         {
-            Vault vault =new Vault();
             FileOutputStream fi = context.openFileOutput("UserInfo.data",MODE_PRIVATE);
             //vault.jsonHandicapWrite();
             String json = GSON.toJson(vault,Vault.class);
@@ -44,7 +43,8 @@ public class PersonInfo {
             BufferedReader reader = new BufferedReader(new InputStreamReader(new DataInputStream(f)));
             String json = reader.readLine();
             Vault vault = GSON.fromJson(json, new TypeToken<Vault>(){}.getType());
-            //vault.jsonHandicapRead();
+            Vault Svault = new StaticVault();
+            Svault.SetSVault(vault);
             f.close();
         }
         catch(Exception e)

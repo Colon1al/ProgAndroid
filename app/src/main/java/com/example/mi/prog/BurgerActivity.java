@@ -122,7 +122,7 @@ public class BurgerActivity extends AppCompatActivity
     }
     public void SetName()
     {
-        Vault v = new Vault();
+        Vault v = new StaticVault();
         NavigationView n = findViewById(R.id.nav_view);
         View header = n.getHeaderView(0);
         T = header.findViewById(R.id.UserName);

@@ -35,7 +35,7 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        v = new Vault();
+        v = new StaticVault();
         Name = (EditText) findViewById(R.id.editText);
         MoodG = (EditText) findViewById(R.id.editText4);
         MoodB = (EditText) findViewById(R.id.editText5);
@@ -48,10 +48,10 @@ public class Profile extends AppCompatActivity {
         WE = findViewById(R.id.button4);
         RS = findViewById(R.id.button5);
         RE = findViewById(R.id.button6);
-        Name.setText(v.NameD);
-        MusicG.setText(v.musicWithGoodMoodD);
-        MusicB.setText(v.musicWithBadMoodD);
-        List<String> lst  = v.writeToWhenBoredD;
+        Name.setText(v.GetSVault().NameD);
+        MusicG.setText(v.GetSVault().musicWithGoodMoodD);
+        MusicB.setText(v.GetSVault().musicWithBadMoodD);
+        List<String> lst  = v.GetSVault().writeToWhenBoredD;
         for (int i=0;i<lst.size();++i)
         {
             if(lst.get(i).equals("Может стоит позвонить родственникам ?")) lst.set(i,"Роственники");
@@ -66,7 +66,7 @@ public class Profile extends AppCompatActivity {
             }
         }
         MoodB.setText(tmp);
-        lst = v.toCheerUpD;
+        lst = v.GetSVault().toCheerUpD;
         for (int i=0;i<lst.size();++i)
         {
             if(lst.get(i).equals("Посмотри видео с котиками")) lst.set(i,"Видео с котиками");
@@ -82,7 +82,7 @@ public class Profile extends AppCompatActivity {
             }
         }
         MoodG.setText(tmp);
-        lst = v.extraActivitiesD;
+        lst = v.GetSVault().extraActivitiesD;
         for (int i=0;i<lst.size();++i)
         {
             if(lst.get(i).equals("Сходи в бассейн, подготовься к лету) ")) lst.set(i,"Бассейн");
@@ -99,7 +99,7 @@ public class Profile extends AppCompatActivity {
             }
         }
         ActivExtra.setText(tmp);
-        tmp = v.toDoToAchieveYourGoalsD.toString();
+        tmp = v.GetSVault().toDoToAchieveYourGoalsD.toString();
         for (int i=0;i<tmp.length();i++)
         {
             if(tmp.charAt(i)=='['||tmp.charAt(i)==']')
@@ -108,7 +108,7 @@ public class Profile extends AppCompatActivity {
             }
         }
         Goals.setText(tmp);
-        tmp = v.prefferedPlacesD;
+        tmp = v.GetSVault().prefferedPlacesD;
         for (int i=0;i<tmp.length();i++)
         {
             if(tmp.charAt(i)=='+')
@@ -117,11 +117,9 @@ public class Profile extends AppCompatActivity {
             }
         }
         Places.setText(tmp);
-        WS.setText(v.TimeNormaliser(v.hourWorkSD,v.minuteWorkSD));
-        WE.setText(v.TimeNormaliser(v.hourWorkED,v.minuteWorkED));
-        RS.setText(v.TimeNormaliser(v.hourRestSD,v.minuteRestSD));
-        RE.setText(v.TimeNormaliser(v.hourRestED,v.minuteRestED));
-        Vault sVault = new StaticVault();
-        sVault.SetSVault(v);
+        WS.setText(v.GetSVault().TimeNormaliser(v.GetSVault().hourWorkSD,v.GetSVault().minuteWorkSD));
+        WE.setText(v.GetSVault().TimeNormaliser(v.GetSVault().hourWorkED,v.GetSVault().minuteWorkED));
+        RS.setText(v.GetSVault().TimeNormaliser(v.GetSVault().hourRestSD,v.GetSVault().minuteRestSD));
+        RE.setText(v.GetSVault().TimeNormaliser(v.GetSVault().hourRestED,v.GetSVault().minuteRestED));
     }
 }

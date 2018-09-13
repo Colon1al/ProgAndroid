@@ -130,50 +130,51 @@ public class ScrollingActivity extends AppCompatActivity {
         PersonInfo info = new PersonInfo();
         Vault vault = new Vault();
         vault.hourWorkSD=hourWorkSD;
-        vault.minuteWorkS=minuteWorkS;
-        vault.hourWorkE=hourWorkE;
-        vault.minuteWorkE=minuteWorkE;
-        vault.hourRestS=hourRestS;
-        vault.minuteRestS=minuteRestS;
-        vault.hourRestE=hourRestE;
-        vault.minuteRestE=minuteRestE;
-        vault.writeToWhenBored.clear();
-        vault.extraActivities.clear();
-        vault.toCheerUp.clear();
-        vault.toDoToAchieveYourGoals.clear();
+        vault.minuteWorkSD=minuteWorkS;
+        vault.hourWorkED=hourWorkE;
+        vault.minuteWorkED=minuteWorkE;
+        vault.hourRestSD=hourRestS;
+        vault.minuteRestSD=minuteRestS;
+        vault.hourRestED=hourRestE;
+        vault.minuteRestED=minuteRestE;
+        vault.writeToWhenBoredD.clear();
+        vault.extraActivitiesD.clear();
+        vault.toCheerUpD.clear();
+        vault.toDoToAchieveYourGoalsD.clear();
         if (CatVideos.isChecked())
-            vault.toCheerUp.add("Посмотри видео с котиками");
+            vault.toCheerUpD.add("Посмотри видео с котиками");
         if (Walk.isChecked())
-            vault.toCheerUp.add("Иди погуляй, хиккикомори");
+            vault.toCheerUpD.add("Иди погуляй, хиккикомори");
         if (TvSeries.isChecked())
-            vault.toCheerUp.add("Время посмотреть сериал !!!");
+            vault.toCheerUpD.add("Время посмотреть сериал !!!");
         if (Family.isChecked())
-            vault.writeToWhenBored.add("Может стоит позвонить родственникам ?");
+            vault.writeToWhenBoredD.add("Может стоит позвонить родственникам ?");
         if (Friend.isChecked())
-            vault.writeToWhenBored.add("Может стоит позвонить друзьям ?");
+            vault.writeToWhenBoredD.add("Может стоит позвонить друзьям ?");
         if (Pool.isChecked())
-            vault.extraActivities.add("Сходи в бассейн, подготовься к лету) ");
+            vault.extraActivitiesD.add("Сходи в бассейн, подготовься к лету) ");
         if (Fit.isChecked())
-            vault.extraActivities.add("Сходи на фитнес подготовься к лету)");
+            vault.extraActivitiesD.add("Сходи на фитнес подготовься к лету)");
         if (ADEM.isChecked())
-            vault.extraActivities.add("Компьютерная графика: ADEM сила, Fusion360 могила !!!");
+            vault.extraActivitiesD.add("Компьютерная графика: ADEM сила, Fusion360 могила !!!");
         if (Dance.isChecked())
-            vault.extraActivities.add("Танцы");
+            vault.extraActivitiesD.add("Танцы");
         if (Lang.isChecked())
-            vault.extraActivities.add("Изучение языков");
+            vault.extraActivitiesD.add("Изучение языков");
         if (Drawing.isChecked())
-            vault.extraActivities.add("Рисование очень хорошо расслабляет");
-        vault.toCheerUp.add(MoodG.getText().toString());
-        vault.writeToWhenBored.add(MoodB.getText().toString());
-        vault.toDoToAchieveYourGoals.add(Goals.getText().toString());
+            vault.extraActivitiesD.add("Рисование очень хорошо расслабляет");
+        vault.toCheerUpD.add(MoodG.getText().toString());
+        vault.writeToWhenBoredD.add(MoodB.getText().toString());
+        vault.toDoToAchieveYourGoalsD.add(Goals.getText().toString());
         vault.prefferedPlacesD=Places.getText().toString();
-
-        vault.extraActivities.add(ActivExtra.getText().toString());
-        vault.musicWithBadMood = MusicB.getText().toString();
-        vault.musicWithGoodMood = MusicG.getText().toString();
-        vault.Name=Name.getText().toString();
-        info.writeFile(ScrollingActivity.this);
-        vault.startAlarmTime(vault,this);
+        vault.extraActivitiesD.add(ActivExtra.getText().toString());
+        vault.musicWithBadMoodD = MusicB.getText().toString();
+        vault.musicWithGoodMoodD = MusicG.getText().toString();
+        vault.NameD=Name.getText().toString();
+        info.writeFile(ScrollingActivity.this,vault);
+        StaticVault vS = new StaticVault();
+        vS.SetSVault(vault);
+        vault.startAlarmTime(vS,this);
 
         finish();
     }

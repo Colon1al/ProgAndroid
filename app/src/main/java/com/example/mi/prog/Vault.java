@@ -234,7 +234,7 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
                         AskUser(context,V.GetSVault().toCheerUpD.get(i),"Тебе скучно?",1,"Basic",am,timeRand);
                         break;
 
-                    case 1://writeToWhenNored
+                    case 1://writeToWhenNore
                         i = ThreadLocalRandom.current().nextInt(0,V.GetSVault().writeToWhenBoredD.size());
                         AskUser(context,V.GetSVault().writeToWhenBoredD.get(i),"Тебе скучно?",2,"Basic",am,timeRand);
                         break;

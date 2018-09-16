@@ -128,9 +128,9 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
             Date dateRS,dateRE,dateWS,dateWE;
             Log.i("Vault", "Before Nice Alarm func");
             dateWS = NiceAlarm("Пора за работу","Basic",sdf,context,am,dateStr,c,V.GetSVault().hourWorkSD,V.GetSVault().minuteWorkSD);
-            dateWE = NiceAlarm("Пора за работу","Basic",sdf,context,am,dateStr,c,V.GetSVault().hourWorkED,V.GetSVault().minuteWorkED);
-            dateRS = NiceAlarm("Пора за работу","Basic",sdf,context,am,dateStr,c,V.GetSVault().hourRestSD,V.GetSVault().minuteRestSD);
-            dateRE = NiceAlarm("Пора за работу","Basic",sdf,context,am,dateStr,c,V.GetSVault().hourRestED,V.GetSVault().minuteRestED);
+            dateWE = NiceAlarm("Работа закончена, ура!","Basic",sdf,context,am,dateStr,c,V.GetSVault().hourWorkED,V.GetSVault().minuteWorkED);
+            dateRS = NiceAlarm("Время для отдыха!","Basic",sdf,context,am,dateStr,c,V.GetSVault().hourRestSD,V.GetSVault().minuteRestSD);
+            dateRE = NiceAlarm("Пора заканчивать отдых!","Basic",sdf,context,am,dateStr,c,V.GetSVault().hourRestED,V.GetSVault().minuteRestED);
 
 
             //WS

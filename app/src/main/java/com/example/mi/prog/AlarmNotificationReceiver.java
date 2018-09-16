@@ -29,6 +29,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent)
     {
+        Log.i(TAG,"ALARM RESIEVED");
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
         notification.setAutoCancel(true);
         notification.setDefaults(Notification.DEFAULT_ALL);

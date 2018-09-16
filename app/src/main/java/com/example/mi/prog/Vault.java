@@ -62,9 +62,10 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
         minuteWorkE = minuteWorkED;
         minuteWorkS = minuteWorkSD;
     }*/
-   private Date NiceAlarm(String title, String Special,String dateStrEnd,SimpleDateFormat sdf,Context context,AlarmManager am,String dateStr, Calendar c,int mins,int hours)
+   private Date NiceAlarm(String title, String Special,SimpleDateFormat sdf,Context context,AlarmManager am,String dateStr, Calendar c,int hours,int mins)
    {
        try{
+           String dateStrEnd;
            if(hours<=9)
                 dateStrEnd = "0"+hours+":";
             else
@@ -74,6 +75,7 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
            else
                dateStrEnd = dateStrEnd+mins+":00.000";
            Date dateWS = sdf.parse(dateStr + dateStrEnd);
+           Log.i("Vault", "dateWS Nice Alarm "+ dateWS);
            Intent intent = new Intent(context, AlarmNotificationReceiver.class);
            intent.putExtra("time",dateWS.toString());
            intent.putExtra("title",title);
@@ -85,15 +87,16 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
            //Non-repeating alarm
            if(time>c.getTimeInMillis())
            {
-               Log.i(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Alarm is ready to be set");
+               Log.i("Vault", "Alarm is ready to be set");
                am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
-               Log.i(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Alarm is set");
+               Log.i("Vault", "Alarm is set");
            }
 
            return dateWS;
        } catch (Exception e){return null;}}
     private void AskUser(Context context,String text,String title,int id,String Special,AlarmManager am,long timeRand)
     {
+        Log.i("Vault","AskUser started");
         Intent intent = new Intent(context, AlarmNotificationReceiver.class);
         intent.putExtra("text",text);
         intent.putExtra("title", title);
@@ -109,9 +112,9 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
         try {
             Log.i(TAG,"!!!!!!!! START ALARM TIME STARTED");
             AlarmManager am = (AlarmManager)context.getSystemService(ALARM_SERVICE);
-            long time;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             Calendar c = Calendar.getInstance();
+            Log.i("Vault","Calendar Get date "+c.getTime());
             String dateStr = c.get(Calendar.YEAR)+"-"; //" "+
             if((c.get(Calendar.MONTH)+1)<=9)
                 dateStr = dateStr + "0" + (c.get(Calendar.MONTH)+1)+"-";
@@ -122,14 +125,12 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
             else
                 dateStr = dateStr + c.get(Calendar.DAY_OF_MONTH);
             dateStr = dateStr + " ";
-
-            String dateStrEnd = "";
             Date dateRS,dateRE,dateWS,dateWE;
-            Log.i(TAG, "!!!!!!!!!!!!!!! Before Nice Alarm func");
-            dateWS = NiceAlarm("Пора за работу","Basic",dateStrEnd,sdf,context,am,dateStr,c,V.GetSVault().hourWorkSD,V.GetSVault().minuteWorkSD);
-            dateWE = NiceAlarm("Пора за работу","Basic",dateStrEnd,sdf,context,am,dateStr,c,V.GetSVault().hourWorkED,V.GetSVault().minuteWorkED);
-            dateRS = NiceAlarm("Пора за работу","Basic",dateStrEnd,sdf,context,am,dateStr,c,V.GetSVault().hourRestSD,V.GetSVault().minuteRestSD);
-            dateRE = NiceAlarm("Пора за работу","Basic",dateStrEnd,sdf,context,am,dateStr,c,V.GetSVault().hourRestED,V.GetSVault().minuteRestED);
+            Log.i("Vault", "Before Nice Alarm func");
+            dateWS = NiceAlarm("Пора за работу","Basic",sdf,context,am,dateStr,c,V.GetSVault().hourWorkSD,V.GetSVault().minuteWorkSD);
+            dateWE = NiceAlarm("Пора за работу","Basic",sdf,context,am,dateStr,c,V.GetSVault().hourWorkED,V.GetSVault().minuteWorkED);
+            dateRS = NiceAlarm("Пора за работу","Basic",sdf,context,am,dateStr,c,V.GetSVault().hourRestSD,V.GetSVault().minuteRestSD);
+            dateRE = NiceAlarm("Пора за работу","Basic",sdf,context,am,dateStr,c,V.GetSVault().hourRestED,V.GetSVault().minuteRestED);
 
 
             //WS
@@ -221,11 +222,11 @@ public class Vault { // TODO: REWORK THIS SHIIIIIT
             //RestRandom
             if(dateRE.getTime()>dateRS.getTime()) {
                 long timeRand = ThreadLocalRandom.current().nextLong(dateRS.getTime(), dateRE.getTime());
+                Log.i("Vault","dateRS.getTime "+ dateRS.getTime());
                 //Randomising the text on notification
                 int whatToSay = ThreadLocalRandom.current().nextInt(0,5);
-                Log.i(TAG,"WhatToSay= " + whatToSay);
+                Log.i("Vault","WhatToSay= " + whatToSay);
                 int i;
-                whatToSay =3;
                 switch (whatToSay)
                 {
                     case 0://toCheerUp

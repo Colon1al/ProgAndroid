@@ -19,7 +19,6 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
     // DON'T FORGET TO ADD "  <receiver android:name=".AlarmNotificationReceiver"/>   " into manifests -> AndroidManifest.xml
     // ALSO " implementation 'com.android.support:support-v4:27.1.1' " into Gradle Scripts -> build.gradle(Module: app) -> dependencies {}
 
-    public String ticker="Ticker";
     public String title="Календарь";
     public String text="Пришло время события";
     public String info="Название события";
@@ -29,7 +28,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        Log.i(TAG,"ALARM RESIEVED");
+        Log.i(TAG,"ALARM RECEIVED");
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context);
         notification.setAutoCancel(true);
         notification.setDefaults(Notification.DEFAULT_ALL);
@@ -37,7 +36,6 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         notification.setDefaults(Notification.DEFAULT_SOUND);
         notification.setWhen(System.currentTimeMillis());
         notification.setSmallIcon(R.drawable.ic_menu_send);
-        //notification.setTicker(ticker);
         notification.setContentText(intent.getStringExtra("text"));
         notification.setContentTitle(intent.getStringExtra("title"));
         notification.setContentInfo(intent.getStringExtra("time"));
@@ -60,7 +58,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         if (specialIntent.equals("places"))
         {
             Vault v = new Vault();
-            Log.i(TAG,"ВУИГПЖ !!!!!!!!!!: "+ v.GetSVault().prefferedPlacesD);
+            Log.i(TAG,"DEBUG: !!!!!!!!!!: "+ v.GetSVault().prefferedPlacesD);
             for (int i=0;i<v.GetSVault().prefferedPlacesD.length();i++)
             {
                 if (v.GetSVault().prefferedPlacesD.charAt(i) != ' ') {
@@ -76,11 +74,11 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
                 }
             }
             Intent intentForNotification = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.ru/maps/search/"+v.GetSVault().prefferedPlacesD+"/"));
-            Log.i(TAG,"After Uri Plases Notif Res");
+            Log.i(TAG,"After Uri Places Notif Res");
             intentForNotification.putExtra("m", 1);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intentForNotification, PendingIntent.FLAG_UPDATE_CURRENT);
             notification.setContentIntent(pendingIntent);
-            Log.i(TAG,"After Uri Plases Notif Res");
+            Log.i(TAG,"After Uri Places Notif Res");
         }
         else if (specialIntent.equals("question"))
         {

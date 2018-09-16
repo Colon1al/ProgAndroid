@@ -209,7 +209,7 @@ public class LISTDATA {
 
 
         } catch (Exception e) {
-            Log.i("MYAPP", "exception", e);
+            Log.i(TAG,"LISTDATA - writeFileSolo - exception=" + e);
         }
 
     }

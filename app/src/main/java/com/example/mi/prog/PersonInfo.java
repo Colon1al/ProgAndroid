@@ -24,14 +24,14 @@ public class PersonInfo {
             FileOutputStream fi = context.openFileOutput("UserInfo.data",MODE_PRIVATE);
             //vault.jsonHandicapWrite();
             String json = GSON.toJson(vault,Vault.class);
-            Log.i(TAG, "JSON!!!!!!!!!!!:"+json);
+            Log.i(TAG, "PersonInfo - writeFile - json write string:"+json);
             fi.write(json.getBytes());
             fi.close();
 
         }
         catch(Exception e)
         {
-            Log.i("MYAPP", "exception",e);
+            Log.i(TAG,"PersonInfo - writeFile - exception=" + e);
         }
 
     }
@@ -48,7 +48,7 @@ public class PersonInfo {
             f.close();
         }
         catch(Exception e)
-        {Log.i(TAG, "READ JSON USER INFO ERROR"+ e);}
+        {Log.i(TAG, "PersonInfo - readFile - exception=" + e);}
 
     }
 }

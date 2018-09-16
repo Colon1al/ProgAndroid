@@ -131,6 +131,7 @@ public class ListClass extends ListFragment
                     }
                 }
             }
+            //TODO Generics example here:
         adapter.sort(new Comparator<EventClass>() {
             @Override
             public int compare(EventClass lhs, EventClass rhs) {

@@ -1,5 +1,4 @@
 package com.example.mi.prog;
-import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -7,13 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.nfc.Tag;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import static android.content.ContentValues.TAG;
-
+//This class is used to make notifications for the app (sort of a notification template that can be overwritten)
 public class AlarmNotificationReceiver extends BroadcastReceiver {
 
     // DON'T FORGET TO ADD "  <receiver android:name=".AlarmNotificationReceiver"/>   " into manifests -> AndroidManifest.xml
@@ -57,6 +54,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         }
         if (specialIntent.equals("places"))
         {
+            //TODO Polymorphism: We use v as Vault and call GetSVault even if its only virtually described in Vault
             Vault v = new Vault();
             Log.i(TAG,"DEBUG: !!!!!!!!!!: "+ v.GetSVault().prefferedPlacesD);
             for (int i=0;i<v.GetSVault().prefferedPlacesD.length();i++)

@@ -261,5 +261,4 @@ public class BurgerActivity extends AppCompatActivity
             //am.setRepeating(AlarmManager.RTC_WAKEUP,SystemClock.elapsedRealtime() + time, time, pendingIntent);
         } catch (Exception e) { Log.i(TAG,"BurgerActivity - startAlarm - exception=" + e);}
     }
-
 }

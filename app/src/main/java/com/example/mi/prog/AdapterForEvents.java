@@ -42,7 +42,7 @@ public class AdapterForEvents extends ArrayAdapter<EventClass>
             tvName.setText(Event.getName());
             tvInfo.setText(Event.getInfo());
             Time.setText(Event.getTime());
-            // Return the completed view to render on screen
+            //Making a nice gradient to differentiate events in a list
             ArgbEvaluator A = new ArgbEvaluator();
             float F = position/(float)LST.size();
             if (LST.size()<8)
@@ -51,6 +51,7 @@ public class AdapterForEvents extends ArrayAdapter<EventClass>
             String s = Integer.toHexString(i);
             convertView.findViewById(R.id.RelativeEventLayout).setBackgroundColor(i);
             Log.i(TAG,s+" COLOUR on POS :"+position +"          "+ LST.size() +"   "+ F );
+            // Return the completed view to render on screen
             return convertView;
 
 

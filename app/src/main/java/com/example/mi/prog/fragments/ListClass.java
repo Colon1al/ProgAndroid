@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.support.design.widget.FloatingActionButton;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +25,10 @@ import java.util.Date;
 
 import static android.content.ContentValues.TAG;
 
-
+//This Class gets Data from LISTDATA and uses it to create the list view of daily events
 public class ListClass extends ListFragment
 {
-    static int currM = -1;//TODO:govnocode
+    static int currM = -1;//currentMonth is set to -1 for initialization
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
@@ -41,10 +40,12 @@ public class ListClass extends ListFragment
         final int d = transfer.getInt("day");
         l.setLmonth(transfer.getInt("month"));
         l.setLyear(transfer.getInt("year"));
+        //If our current month loaded(currM) is not equal to current month for display (transfer.getInt("month"))
+        //we load data for the new month
         if (currM!=transfer.getInt("month"))
         {
             currM = transfer.getInt("month");
-           l.readFile(getActivity());
+            l.readFile(getActivity());
         }
             FloatingActionButton fab = getView().findViewById(R.id.floatingActionButton2);
             fab.setOnClickListener(new View.OnClickListener() {

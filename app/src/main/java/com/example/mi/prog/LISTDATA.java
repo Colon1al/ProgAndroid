@@ -1,7 +1,5 @@
 package com.example.mi.prog;
 
-
-
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -15,22 +13,20 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.Context;
 
 import static android.content.ContentValues.TAG;
 import static android.content.Context.MODE_PRIVATE;
-
+//This class is responsible for dealing with loaded EventClass events (adding/deleting, loading/writing)
 public class LISTDATA {
     public static List<EventClass> data = new ArrayList<EventClass>();
     private final static Gson GSON = new GsonBuilder().create();
     File file;
-    Context fileContext;
     private static int lmonth;
     private static int lyear;
 
-    public void LISTDATA(Context fileContext) {
-        this.fileContext = fileContext;
-    }
+    public LISTDATA() {}
 
     public void writeFile(Context context) {
         try {
@@ -41,9 +37,8 @@ public class LISTDATA {
 
 
         } catch (Exception e) {
-            Log.i("MYAPP", "exception", e);
+            Log.i(TAG, "LISTDATA - writeFile - exception" + e);
         }
-
     }
 
     public void readFile(Context context) {
@@ -53,7 +48,7 @@ public class LISTDATA {
             BufferedReader reader;
             String json;
 
-
+            data = new ArrayList<>();
             file = new File(context.getFilesDir()+"/" + Integer.toString(lyear) + "-" + Integer.toString(lmonth) + ".data");
             if (file.getAbsoluteFile().exists())
             {
@@ -115,6 +110,7 @@ public class LISTDATA {
                 f = context.openFileInput("EYear.data");
                 reader = new BufferedReader(new InputStreamReader(new DataInputStream(f)));
                 json = reader.readLine();
+                //TODO Template example
                 temp = GSON.fromJson(json, new TypeToken<List<EventClass>>() {
                 }.getType());
                 f.close();
@@ -124,7 +120,7 @@ public class LISTDATA {
             }
 
         } catch (Exception e) {
-            Log.i(TAG, "Exception2 + " + e);
+            Log.i(TAG, "LISTDATA - readFile - exception" + e);
         }
 
     }
@@ -164,7 +160,7 @@ public class LISTDATA {
 
 
         } catch (Exception e) {
-            Log.i("MYAPP", "exception", e);
+            Log.i(TAG, "LISTDATA - add - exception", e);
         }
 
     }
@@ -193,7 +189,7 @@ public class LISTDATA {
 
             return datatmp;
         } catch (Exception e) {
-            Log.i(TAG, "Exception SOLO READ : filename :"+fileName +"Ex: "+e );
+            Log.i(TAG, "LISTDATA - readFileSolo -  filename :"+fileName +", exception: "+e );
             return null;
         }
 
@@ -213,7 +209,7 @@ public class LISTDATA {
         }
 
     }
-
+    //poor english :(
     public void writeRepetive(Context context, EventClass E) {
         try {
             String fileName = "0";
@@ -251,7 +247,7 @@ public class LISTDATA {
 
 
         } catch (Exception e) {
-            Log.i("MYAPP", "exception", e);
+            Log.i(TAG, "LISTDATA - writeRepetive - exception=", e);
         }
     }
 
@@ -289,6 +285,8 @@ public class LISTDATA {
                 }
             }
             writeFileSolo(context, f.getName(), datatmp);
-        } catch (Exception e) {}
+        } catch (Exception e){
+            Log.i(TAG,"LISTDATA - deleteRepetition - exception=" + e);
+        }
     }
 }

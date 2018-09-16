@@ -27,13 +27,11 @@ public class PersonInfo {
             Log.i(TAG, "PersonInfo - writeFile - json write string:"+json);
             fi.write(json.getBytes());
             fi.close();
-
         }
         catch(Exception e)
         {
             Log.i(TAG,"PersonInfo - writeFile - exception=" + e);
         }
-
     }
     public void readFile(Context context)
     {
@@ -49,6 +47,5 @@ public class PersonInfo {
         }
         catch(Exception e)
         {Log.i(TAG, "PersonInfo - readFile - exception=" + e);}
-
     }
 }

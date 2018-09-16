@@ -48,6 +48,7 @@ public class DialogActivity extends AppCompatActivity {
         finish();
     }
 
+    //This method transforms music strings entered into viable URI strings
     void searchLink()
     {
         Vault v = new StaticVault();

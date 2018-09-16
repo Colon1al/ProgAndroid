@@ -1,30 +1,21 @@
 package com.example.mi.prog;
 
-import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.TimePicker;
-
-import com.example.mi.prog.fragments.ListClass;
-
-import java.util.Calendar;
-
-import static android.content.ContentValues.TAG;
-
+//This class describes the activity in which an event can be edited
 public class EditEventActivity extends AppCompatActivity {
     EditText name;
     EditText info;
     RadioButton E, Eday,Eweek,Emonth,Eyear;
     Button getdate;
-    int year,month,day,minute,hour,m;
+    int minute,hour,m;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

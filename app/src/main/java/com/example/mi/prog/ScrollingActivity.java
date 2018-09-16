@@ -2,18 +2,14 @@ package com.example.mi.prog;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TimePicker;
-
-import static android.content.ContentValues.TAG;
-
+//This class describes how Scrolling Activity will work. This Activity is a questionnaire, where user fills up all the data. This class gets this data and stores it in the Vault
 public class ScrollingActivity extends AppCompatActivity {
     int hourWorkSD,minuteWorkS,hourWorkE,minuteWorkE,hourRestS,minuteRestS,hourRestE,minuteRestE;
     CheckBox CatVideos;
@@ -71,6 +67,7 @@ public class ScrollingActivity extends AppCompatActivity {
         RE = findViewById(R.id.button6);
 
     }
+
     public void getDateWorkStart(View view)
     {
 

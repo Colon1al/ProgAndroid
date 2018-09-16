@@ -1,23 +1,20 @@
 package com.example.mi.prog;
 
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
 
-import static android.content.ContentValues.TAG;
-
+//This class is very similar to EditActivity, but its purpose is to create a new event. Why did we create two similar classes?
+//1) - delete button is not here
+//2) - we do not get event data - we create it
 public class SetNew extends AppCompatActivity {
 
 

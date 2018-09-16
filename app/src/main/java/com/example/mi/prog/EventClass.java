@@ -1,17 +1,15 @@
 package com.example.mi.prog;
 
 import java.io.Serializable;
-
+//This is an event class
 public class EventClass implements Serializable
 {
     private String Name, Info;
-   private int year,month,day,type,hours,minutes,repeat,hoursE,minutesE;
-   //repeat: {0 :no rep},{1:every day bro with the DISNEY CHANNEL FLOOOOOOW},
-   //{2:EVERY WEEK},{3:Every month},{4:Every year};
+    private int year,month,day,hours,minutes,repeat;
+    //repeat: {0 :no rep},{1:every day bro with the DISNEY CHANNEL FLOOOOOOW},
+    //{2:EVERY WEEK},{3:Every month},{4:Every year};
 
-
-
-    public EventClass(String Name, String info,int year,int month,int day,int hours, int minutes,int repeat)//TODO:GOVNOCODE?????
+    public EventClass(String Name, String info,int year,int month,int day,int hours, int minutes,int repeat)
     {
         this.Name = Name;
         this.Info = info;
@@ -21,8 +19,6 @@ public class EventClass implements Serializable
         this.hours = hours;
         this.minutes = minutes;
         this.repeat = repeat;
-        this.minutesE = minutesE;
-        this.hoursE = hoursE;
 
 
     }
@@ -53,30 +49,21 @@ public class EventClass implements Serializable
         return day;
     }
 
-    public void setDay(int day)
-    {
-        this.day = day;
-    }
     //Year
     public int getYear()
     {
         return year;
     }
 
-    public void setYear(int year)
-    {
-        this.year = year;
-    }
     //Month
     public int getMonth()
     {
         return month;
     }
 
-    public void setMonth(int month)
-    {
-        this.month = month;
-    }
+    //There are no setters for day, month and year because EditEventActivity can only edit events at a specific date.
+    //If you want to change the date, you have to create a new event.
+
     //Time
     public String getTime()
     {
@@ -89,24 +76,22 @@ public class EventClass implements Serializable
         return hours + " : "+minutes;
 
     }
-    public String getTimeE()
-    {
-        if(hoursE<10 && minutesE<10)
-        {return "0"+hoursE + " : 0" + minutesE;}
-        if(hoursE<10)
-        {   return "0"+hoursE + " : " + minutesE;}
-        if(minutesE<10)
-        {   return hoursE + " : 0"+minutesE;}
-        return hoursE + " : "+minutesE;
-
-    }
 
     public int getRepeat() {
         return repeat;
     }
-    public boolean isEqual(EventClass E)//TODO: OVERLOAD OPERATOR IF POSSIBLE
+
+    public boolean isEqual(EventClass E)
     {
-        if(E.getName().equals(Name) && E.getHours()==hours && E.getMinutes()==minutes&&E.getYear()==year&&E.getMonth()==month&&E.getDay()==day&&E.getRepeat()==repeat){return true;} else return false;
+        if(E.getName().equals(Name) &&
+                E.getHours()==hours && E.getMinutes()==minutes &&
+                E.getYear()==year && E.getMonth()==month && E.getDay()==day &&
+                E.getRepeat()==repeat)
+        {
+            return true;
+        }
+        else
+            return false;
     }
     public int getHours() {
         return hours;
